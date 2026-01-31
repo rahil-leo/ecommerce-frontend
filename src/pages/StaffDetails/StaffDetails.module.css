@@ -1,0 +1,231 @@
+.container {
+  padding: 40px 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.backBtn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.staffListContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.noData {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+  font-size: 1.2rem;
+}
+
+.staffGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.staffCard {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border-left: 4px solid #667eea;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.staffCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  border-left-color: #764ba2;
+}
+
+.cardContent {
+  flex-grow: 1;
+}
+
+.staffInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.role {
+  display: flex;
+  gap: 10px;
+  font-size: 0.95rem;
+  align-items: center;
+}
+
+.roleLabel {
+  font-weight: 600;
+  color: #666;
+}
+
+.roleValue {
+  background: #667eea;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.email,
+.phone,
+.status,
+.date {
+  font-size: 0.95rem;
+  color: #555;
+  display: flex;
+  gap: 10px;
+  word-break: break-word;
+}
+
+.label {
+  font-weight: 600;
+  color: #666;
+  min-width: 70px;
+}
+
+.active {
+  color: #22c55e;
+  font-weight: 600;
+  background: #dcfce7;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.inactive {
+  color: #ef4444;
+  font-weight: 600;
+  background: #fee2e2;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.disableBtn {
+  flex: 1;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.disableBtn:hover {
+  background: #d97706;
+  transform: scale(1.05);
+}
+
+.enableBtn {
+  flex: 1;
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.enableBtn:hover {
+  background: #16a34a;
+  transform: scale(1.05);
+}
+
+.deleteBtn {
+  flex: 1;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deleteBtn:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .staffGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .staffListContainer {
+    padding: 20px;
+  }
+}
