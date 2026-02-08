@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Loader, Alert } from '@components/common';
+import { Card, Loader, Alert, BackButton } from '@components/common';
 import { categoryService } from '@services';
 import { ROUTES } from '@constants';
 import styles from './CategoryDetail.module.css';
@@ -109,12 +109,7 @@ const CategoryDetail = () => {
                 )}
               </div>
             </div>
-            <button 
-              className={styles.backBtn}
-              onClick={() => navigate('/')}
-            >
-              ← Back to Home
-            </button>
+            <BackButton to="/" text="← Back to Home" className={styles.backBtn} />
           </div>
         )}
 

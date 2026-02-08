@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@context/AuthContext';
-import { Button, Input, Alert } from '@components/common';
+import { Button, Input, Alert, BackButton } from '@components/common';
 import { API_BASE_URL } from '@constants';
 import styles from './AddProduct.module.css';
 
 const AddProduct = () => {
   const { user, loading: authLoading } = useAuth();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [categories, setCategories] = useState([]);
@@ -26,12 +24,12 @@ const AddProduct = () => {
 
   useEffect(() => {
     if (!authLoading && (!user || (user.role !== 'admin' && user.role !== 'staff'))) {
-      navigate('/login');
+      window.location.href = '/login';
     } else if (!authLoading && user && (user.role === 'admin' || user.role === 'staff')) {
       fetchCategories();
       fetchProducts();
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading]);
 
   if (authLoading) {
     return <div className={styles.loading}>Loading...</div>;
@@ -222,21 +220,15 @@ const AddProduct = () => {
     setMessage({ type: '', text: '' });
   };
 
-  const handleBackToDashboard = () => {
-    if (user.role === 'staff') {
-      navigate('/staff/dashboard');
-    } else if (user.role === 'admin') {
-      navigate('/admin/dashboard');
-    }
+  const getBackButtonPath = () => {
+    return user?.role === 'staff' ? '/staff/dashboard' : '/admin/dashboard';
   };
 
   return (
     <div className={styles.addProduct}>
       <div className="container">
         <div className={styles.header}>
-          <Button variant="outline" onClick={handleBackToDashboard}>
-            ← Back to Dashboard
-          </Button>
+          <BackButton to={getBackButtonPath()} text="← Back to Dashboard" variant="outline" />
           <h1 className={styles.title}>
             {editingProductId ? 'Edit Product' : 'Add Product'}
           </h1>

@@ -172,9 +172,15 @@
   transition: all 0.3s ease;
 }
 
-.disableBtn:hover {
+.disableBtn:hover:not(:disabled) {
   background: #d97706;
   transform: scale(1.05);
+}
+
+.disableBtn:disabled {
+  background: #d97706;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .enableBtn {
@@ -189,9 +195,15 @@
   transition: all 0.3s ease;
 }
 
-.enableBtn:hover {
+.enableBtn:hover:not(:disabled) {
   background: #16a34a;
   transform: scale(1.05);
+}
+
+.enableBtn:disabled {
+  background: #16a34a;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .deleteBtn {
@@ -206,9 +218,15 @@
   transition: all 0.3s ease;
 }
 
-.deleteBtn:hover {
+.deleteBtn:hover:not(:disabled) {
   background: #dc2626;
   transform: scale(1.05);
+}
+
+.deleteBtn:disabled {
+  background: #dc2626;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

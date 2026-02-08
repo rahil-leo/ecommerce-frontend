@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Loader, Alert } from '@components/common';
+import { useParams } from 'react-router-dom';
+import { Button, Loader, Alert, BackButton } from '@components/common';
 import { useCart } from '@context/CartContext';
 import { productService } from '@services';
 import { ROUTES } from '@constants';
@@ -8,7 +8,6 @@ import styles from './ProductDetail.module.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { addToCart, cartItems } = useCart();
   
   const [product, setProduct] = useState(null);
@@ -87,7 +86,7 @@ const ProductDetail = () => {
     return (
       <div className="container">
         <Alert type="error" message={error} />
-        <Button onClick={() => navigate(ROUTES.PRODUCTS)}>Back to Products</Button>
+        <BackButton to={ROUTES.PRODUCTS} text="Back to Products" />
       </div>
     );
   }
@@ -96,7 +95,7 @@ const ProductDetail = () => {
     return (
       <div className="container">
         <p>Product not found</p>
-        <Button onClick={() => navigate(ROUTES.PRODUCTS)}>Back to Products</Button>
+        <BackButton to={ROUTES.PRODUCTS} text="Back to Products" />
       </div>
     );
   }
@@ -104,9 +103,7 @@ const ProductDetail = () => {
   return (
     <div className="container">
       <div className={styles.productDetail}>
-        <Button variant="ghost" onClick={() => navigate(ROUTES.PRODUCTS)} className={styles.backButton}>
-          ← Back to Products
-        </Button>
+        <BackButton to={ROUTES.PRODUCTS} text="← Back to Products" variant="ghost" className={styles.backButton} />
 
         {addedToCart && (
           <Alert 
