@@ -30,6 +30,16 @@ export const productService = {
     }
   },
 
+  // Get new products (created in last 48 hours)
+  getNewProducts: async () => {
+    try {
+      const response = await api.get('/products/new/list');
+      return response.data || [];
+    } catch (error) {
+      throw error;
+    }
+  },
+
   // Get all categories
   getCategories: async () => {
     try {

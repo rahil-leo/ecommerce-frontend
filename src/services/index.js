@@ -4,3 +4,4 @@ export { default as productService } from './productService';
 export { default as authService } from './authService';
 export { default as cartService } from './cartService';
 export { default as staffService } from './staffService';
+export { default as categoryService } from './categoryService';

@@ -10,3 +10,4 @@ export { default as DashboardCard } from './DashboardCard/DashboardCard';
 export { default as DashboardTile } from './DashboardTile/DashboardTile';
 export { default as ConfirmDialog } from './ConfirmDialog/ConfirmDialog';
 export { default as Toast } from './Toast/Toast';
+export { default as ProductCarousel } from './ProductCarousel/ProductCarousel';

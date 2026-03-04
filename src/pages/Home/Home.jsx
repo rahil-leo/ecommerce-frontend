@@ -1,15 +1,55 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card } from '@components/common';
+import { Button, Card, ProductCarousel } from '@components/common';
 import { ROUTES } from '@constants';
+import { productService, categoryService } from '@services';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const features = [
-    { icon: '🚚', title: 'Free Shipping', description: 'On orders over $50' },
-    { icon: '🔒', title: 'Secure Payment', description: '100% secure transactions' },
-    { icon: '↩️', title: 'Easy Returns', description: '30-day return policy' },
-    { icon: '⭐', title: 'Best Quality', description: 'Top-rated products' },
-  ];
+  const [newProducts, setNewProducts] = useState([]);
+  const [featuredCategories, setFeaturedCategories] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch new products
+        const newProdsResponse = await productService.getNewProducts();
+        const newProdsData = newProdsResponse.data || newProdsResponse || [];
+        setNewProducts(newProdsData);
+
+        // Fetch featured categories
+        const categoriesResponse = await categoryService.getFeaturedCategories();
+        const categoriesData = categoriesResponse.data || categoriesResponse || [];
+        setFeaturedCategories(categoriesData);
+
+        // Fetch products for each featured category
+        const productsMap = {};
+        for (const category of categoriesData) {
+          try {
+            const productsResponse = await productService.getProductsByCategory(category._id);
+            const productsData = productsResponse.data || productsResponse || [];
+            productsMap[category._id] = productsData;
+          } catch (err) {
+            console.error(`Error fetching products for category ${category.name}:`, err);
+            productsMap[category._id] = [];
+          }
+        }
+        setCategoryProducts(productsMap);
+      } catch (err) {
+        console.error('Error fetching home page data:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.home}>
@@ -28,20 +68,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className={styles.features}>
-        <div className="container">
-          <div className={styles.featuresGrid}>
-            {features.map((feature, index) => (
-              <Card key={index} padding="medium" className={styles.featureCard}>
-                <div className={styles.featureIcon}>{feature.icon}</div>
-                <h3 className={styles.featureTitle}>{feature.title}</h3>
-                <p className={styles.featureDescription}>{feature.description}</p>
-              </Card>
-            ))}
-          </div>
+      {/* New Products Carousel */}
+      {!loading && newProducts.length > 0 && (
+        <section className={`${styles.productsSection} container`}>
+          <ProductCarousel
+            products={newProducts}
+            title="New Arrivals"
+            description="Check out our latest products added in the last 48 hours"
+          />
+        </section>
+      )}
+
+      {/* Featured Categories Carousels */}
+      {!loading && featuredCategories.length > 0 && (
+        <div className={styles.categoriesContainer}>
+          {featuredCategories.map((category) => (
+            <section key={category._id} className={`${styles.productsSection} container`}>
+              <ProductCarousel
+                products={categoryProducts[category._id] || []}
+                title={`Shop ${category.name}`}
+                description={category.description}
+              />
+            </section>
+          ))}
         </div>
-      </section>
+      )}
 
       {/* CTA Section */}
       <section className={styles.cta}>
@@ -62,3 +113,4 @@ const Home = () => {
 };
 
 export default Home;
+

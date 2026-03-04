@@ -76,6 +76,15 @@
   font-size: 0.875rem;
 }
 
+.productsSection {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.categoriesContainer {
+  width: 100%;
+}
+
 .cta {
   background-color: var(--bg-primary);
   padding: 4rem 0;
